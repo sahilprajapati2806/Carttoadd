@@ -3,16 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeFromWishlist } from "../Slice/WishlistSlice";
 import { add } from "../Slice/Cartslice";
 
+
 const Wishlist = () => {
   const wishlistItems = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
 
   return (
     <div className="cart-container">
-      <h2>Wishlist Items </h2>
+      <h2 className="cart-title">Wishlist Items</h2>
 
       {wishlistItems.length === 0 ? (
-        <h3>Your wishlist is empty</h3>
+        <h3 className="empty-msg">Your wishlist is empty</h3>
       ) : (
         <table className="cart-table">
           <thead>
@@ -27,9 +28,13 @@ const Wishlist = () => {
 
           <tbody>
             {wishlistItems.map((item) => (
-              <tr key={item.id}>
+              <tr key={item._id}>
                 <td>
-                  <img src={item.image} width="80" />
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="cart-img"
+                  />
                 </td>
 
                 <td>{item.title}</td>
@@ -37,16 +42,22 @@ const Wishlist = () => {
                 <td>${item.price}</td>
 
                 <td>
-                  <button onClick={() => dispatch(add(item))}>
+                  <button
+                    className="btn-add"
+                    onClick={() => dispatch(add(item))}
+                  >
                     Add to Cart
                   </button>
                 </td>
 
                 <td>
                   <button
-                    onClick={() => dispatch(removeFromWishlist(item.id))}
+                    className="btn-remove"
+                    onClick={() =>
+                      dispatch(removeFromWishlist(item._id))
+                    }
                   >
-                    X
+                    Remove
                   </button>
                 </td>
               </tr>

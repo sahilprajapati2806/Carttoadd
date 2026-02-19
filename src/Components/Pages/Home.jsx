@@ -11,7 +11,7 @@ const Home = () => {
 
 
     useEffect(() => {
-        fetch("https://fakestoreapi.com/products")
+        fetch("http://localhost:4000/product")
             .then((res) => res.json())
             .then((data) => {
                 setSold(data)
@@ -23,7 +23,7 @@ const Home = () => {
     const dispatch = useDispatch()
 
     let ADD = (p) => {
-        let num = names.find((totalitem) => totalitem.id === p.id)
+        let num = names.find((totalitem) => totalitem._id === p._id)
         if (!num) {
             dispatch(add(p))
         } else {
@@ -58,16 +58,20 @@ const Home = () => {
         let example = data.filter((i) => {
             if (e.target.value === "") {
                 return true
-            } else if (e.target.value === "0-200") {
-                return i.price >= 0 && i.price <= 200
-            } else if (e.target.value === "200-400") {
-                return i.price >= 200 && i.price <= 400
             } else if (e.target.value === "400-600") {
                 return i.price >= 400 && i.price <= 600
-            }else if(e.target.value==="600-800"){
-                return i.price >=600 && i.price<=800
-            }else if(e.target.value==="800-1000"){
-                return i.price >=800 && i.price<=1000
+            } else if (e.target.value === "600-800") {
+                return i.price >= 600 && i.price <= 800
+            } else if (e.target.value === "800-1000") {
+                return i.price >= 800 && i.price <= 1000
+            }else if(e.target.value==="1000-1500"){
+                return i.price >=1000 && i.price<=1500
+            }else if(e.target.value==="1500-2000"){
+                return i.price >=1500 && i.price<=2000
+            }else if(e.target.value==="2000-3000"){
+                return i.price >=2000 && i.price<=3000
+            }else if(e.target.value==="3000-5000"){
+                return i.price >=3000 && i.price<=5000
             }
             return false
         })
@@ -78,17 +82,19 @@ const Home = () => {
             <p className='ul'>
                 <button onClick={() => setSold(data)}>All</button>
                 <button onClick={() => BUTTON("men's clothing")}>Mens'clothing</button>
-                <button onClick={() => BUTTON("jewelery")}>Jewellery</button>
+                <button onClick={() => BUTTON("jewellery")}>Jewellery</button>
                 <button onClick={() => BUTTON("electronics")}>Electronics</button>
                 <button onClick={() => BUTTON("women's clothing")}>Womans'clothing</button>
                 <input type="search" placeholder='Search Product' value={search} onChange={searching}></input>
                 <select id='range'value={priceRange} onChange={change}>
                     <option>Select a Range</option>
-                    <option>0-200</option>
-                    <option>200-400</option>
                     <option>400-600</option>
                     <option>600-800</option>
                     <option>800-1000</option>
+                    <option>1000-1500</option>
+                    <option>1500-2000</option>
+                    <option>2000-3000</option>
+                    <option>3000-5000</option>
                 </select>
             </p>
 
@@ -96,9 +102,9 @@ const Home = () => {
 
             <div className='main'>
                 {sold.map((p) => (
-                    <div className='card' key={p.id}>
+                    <div className='card' key={p._id}>
                         <h3>{p.title}</h3>
-                        <img src={p.image} />
+                        <img src={p.image}/>
                         <h3>Price: {p.price}</h3>
                         <h5>Description: {p.description.slice(0, 100)}{p.description.length > 100 ? "..." : ""}</h5>
                         <h3>Category: {p.category}</h3>

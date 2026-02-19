@@ -3,24 +3,26 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from './Components/Pages/Home'
 import Navbar from './Components/Pages/Navbar'
 import Cart from './Components/Pages/Cart'
+import Wishlist from './Components/Pages/Wishlist'
 import Store from './Components/Slice/Store'
-import {Provider} from "react-redux"
-import Wishlist from '../../Addtocart/src/Components/Pages/Wishlist'
+import Auth from './Components/Pages/Auth'
+import { Provider } from "react-redux"
+
 const App = () => {
-  
   return (
-    <div>
     <Provider store={Store}>
       <BrowserRouter>
-      <Navbar/>
+        <Navbar />
         <Routes>
           <Route path='/' element={<Home />} />
-          <Route path='/cart' element={<Cart/>} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/wishlist' element={<Wishlist />} />
+          <Route path='/auth' element={<Auth/>}/>
+         
+
         </Routes>
       </BrowserRouter>
-      </Provider>
-    </div>
+    </Provider>
   )
 }
 
